@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <p id="date-format"></p>
+    <p id="month-word"></p>
+    <p id="current-day"></p>
+    <p id="current-month"></p>
+    <p id="current-year"></p>
+    <p id="full-date"></p>
+    <p id="day-of-week-number"></p>
+    <p id="day-of-week-word"></p>
+    <p id="specific-date"></p>
+    <p id="minutes-since-epoch"></p>
+    <p id="hours-between-dates"></p>
+    <p id="seconds-from-start-of-day"></p>
+    <p id="seconds-until-end-of-day"></p>
+    <p id="days-until-birthday"></p>
+
+    <script>
+        const today = new Date();
+
+        // 1
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0'); 
+        const day = String(today.getDate()).padStart(2, '0'); 
+        document.getElementById("date-format").innerHTML = `Поточний рік, місяць і день: ${year}-${month}-${day}`;
+
+        // 2
+        const months = [
+            'Січень', 'Лютий', 'Березень', 'Квітень', 'Травень', 'Червень',
+            'Липень', 'Серпень', 'Вересень', 'Жовтень', 'Листопад', 'Грудень'
+        ];
+        const monthIndex = today.getMonth();
+        document.getElementById("month-word").innerHTML = months[monthIndex];
+
+        // 3
+        document.getElementById("current-day").innerHTML = today.getDate();
+
+        // 4
+        document.getElementById("current-month").innerHTML = months[monthIndex];
+
+        // 5
+        document.getElementById("current-year").innerHTML = year;
+
+        // 6
+        function formatDate(date) {
+            const hours = String(date.getHours()).padStart(2, '0');
+            const minutes = String(date.getMinutes()).padStart(2, '0');
+            const seconds = String(date.getSeconds()).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const year = date.getFullYear();
+            return `${hours}:${minutes}:${seconds} ${day}.${month}.${year}`;
+        }
+        document.getElementById("full-date").innerHTML = formatDate(today);
+
+        // 7
+        const dayOfWeek = today.getDay();
+        document.getElementById("day-of-week-number").innerHTML = dayOfWeek;
+
+        // 8
+        function showDay(day) {
+            const daysOfWeek = [
+                'Неділя', 'Понеділок', 'Вівторок', 'Середа', 'Четвер', 'П’ятниця', 'Субота'
+            ];
+            return daysOfWeek[day];
+        }
+        document.getElementById("day-of-week-word").innerHTML = showDay(dayOfWeek);
+
+        // 9
+        const specificDate = new Date('2015-01-07');
+        document.getElementById("specific-date").innerHTML = `7 січня 2015 року було: ${specificDate}`;
+
+        // 10
+        const minutesSinceEpoch = Math.floor(today.getTime() / 60000);
+        document.getElementById("minutes-since-epoch").innerHTML = `Кількість хвилин з 1-го січня 1970 року: ${minutesSinceEpoch}`;
+
+        // 11
+        const march1988 = new Date('1988-03-01');
+        const hoursBetween = Math.floor((today.getTime() - march1988.getTime()) / 3600000);
+        document.getElementById("hours-between-dates").innerHTML = `Кількість годин між 1 березня 1988 року і теперішнім часом: ${hoursBetween}`;
+
+        // 12
+            const startOfDay = new Date(today); 
+            startOfDay.setHours(0, 0, 0, 0); 
+            const secondsSinceStartOfDay = Math.floor((today.getTime() - startOfDay.getTime()) / 1000);
+            document.getElementById("seconds-from-start-of-day").innerHTML = `Кількість секунд з початку дня: ${secondsSinceStartOfDay}`;
+
+        // 13
+            const endOfDay = new Date(today);
+            endOfDay.setHours(23, 59, 59, 999); 
+            const secondsUntilEndOfDay = Math.floor((endOfDay.getTime() - today.getTime()) / 1000);
+            document.getElementById("seconds-until-end-of-day").innerHTML = `Кількість секунд до кінця дня: ${secondsUntilEndOfDay}`;
+
+
+        // 14
+        const birthDateInput = prompt("Введіть свою дату народження (формат: '2014-12-31'):");
+        const birthDate = new Date(birthDateInput);
+        const todayDate = new Date();
+
+
+        const currentYear = todayDate.getFullYear();
+        const thisYearBirthday = new Date(birthDate);
+        thisYearBirthday.setFullYear(currentYear);
+
+        if (thisYearBirthday < todayDate) {
+        thisYearBirthday.setFullYear(currentYear + 1);
+        }
+
+        const timeDiff = thisYearBirthday.getTime() - todayDate.getTime();
+
+        const daysUntilBirthday = Math.floor(timeDiff / (1000 * 3600 * 24));
+
+        document.getElementById("days-until-birthday").innerHTML = `До вашого дня народження залишилось ${daysUntilBirthday} днів.`;
+    </script>
+
+</body>
+</html>
