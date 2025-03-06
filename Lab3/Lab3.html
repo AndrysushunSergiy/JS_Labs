@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab3 Strings</title>
+</head>
+<body>
+    <script>
+        function ucFirst(str) {
+            return str.charAt(0).toUpperCase() + str.slice(1);
+}
+    </script>
+
+    <script>
+        function checkSpam(str) {
+        const spamWords = ['типу', 'якби б це', 'коротше', 'таки', 'ну', 'ось', 'взагалі-то', 'значить'];
+        const lowerStr = str.toLowerCase();
+        
+        return spamWords.some(word => lowerStr.includes(word));
+}
+    </script>
+
+    <script>
+        function truncate(str, maxlength) {
+        return str.length > maxlength ? str.slice(0, maxlength - 1) + '…' : str;
+}
+    </script>
+
+    <script>
+        let str = "JavaScript is awesome!";
+
+        let firstFive = str.slice(0, 5);
+
+        let withoutFirstAndLast = str.slice(1, -1);
+
+        let lastFour = str.slice(-4);
+
+        let [beforeSpace, afterSpace] = str.split(' ', 2);
+
+        let withoutFirstFour = str.slice(4);
+
+        console.log(firstFive);
+        console.log(withoutFirstAndLast);
+        console.log(lastFour);
+        console.log(beforeSpace);
+        console.log(afterSpace);
+        console.log(withoutFirstFour);
+
+    </script>
+
+    <script>
+        function areAnagrams(word1, word2) {
+        const normalize = (word) => word.split('').sort().join('');
+        
+        return normalize(word1) === normalize(word2);
+        }
+
+        let word1 = prompt("Введіть перше слово:");
+        let word2 = prompt("Введіть друге слово:");
+
+        if (areAnagrams(word1, word2)) {
+        console.log("Це анаграми.");
+        } else {
+        console.log("Це не анаграми.");
+}
+
+    </script>
+
+    <script>
+        function removeDuplicates(str) {
+        let result = '';
+        for (let char of str) {
+            if (char !== ' ' && !result.includes(char)) {
+            result += char;
+            }
+        }
+        return result;
+        }
+
+        let input = 'a a b b c dd e';
+        console.log(removeDuplicates(input));
+
+    </script>
+</body>
+</html>
