@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .card {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px;
+            display: inline-block;
+        }
+        button {
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <h3>Завдання 1</h3>
+    <ul id="myList"></ul>
+    <button onclick="addElement()">Додати елемент</button>
+
+    <hr>
+
+    <h3>Завдання 2</h3>
+    <button onclick="removeLastElement()">Видалити останній</button>
+
+    <hr>
+
+    <h3>Завдання 3</h3>
+    <button onclick="clearList()">Очистити список</button>
+
+    <hr>
+
+    <h3>Завдання 4</h3>
+    <button onclick="addTitle()">Додати заголовок</button>
+
+    <hr>
+
+    <h3>Завдання 5</h3>
+    <button onclick="addFirstElement()">Додати на початок</button>
+
+    <hr>
+
+    <h3>Завдання 6</h3>
+    <input type="text" id="inputElement" placeholder="Введіть текст">
+    <button onclick="addElementFromInput()">Додати</button>
+
+    <hr>
+
+    <h3>Завдання 7</h3>
+    <ul id="deletableList"></ul>
+    <button onclick="addDeletableElement()">Додати елемент з кнопкою видалення</button>
+
+    <hr>
+
+    <h3>Завдання 8</h3>
+    <ul id="moveableList"></ul>
+    <button onclick="addMoveableElement()">Додати елемент з кнопками переміщення</button>
+
+    <hr>
+
+    <h3>Завдання 9</h3>
+    <p id="paragraph">Це абзац.</p>
+    <button onclick="replaceElement()">Замінити</button>
+
+    <hr>
+
+    <h3>Завдання 10</h3>
+    <button onclick="addCard()">Додати картку</button>
+    <div id="cardsContainer"></div>
+
+    <hr>
+
+    <h3>Завдання 11</h3>
+    <table id="myTable" border="1">
+        <thead>
+            <tr>
+                <th><button onclick="sortTable(0)">Ім’я</button></th>
+                <th><button onclick="sortTable(1)">Прізвище</button></th>
+                <th><button onclick="sortTable(2)">Вік</button></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td>Сергій</td><td>Петренко</td><td>10</td></tr>
+            <tr><td>Юрій</td><td>Даниленко</td><td>15</td></tr>
+            <tr><td>Анна</td><td>Ткаченко</td><td>5</td></tr>
+        </tbody>
+    </table>
+
+    <hr>
+
+    <h3>Завдання 12</h3>
+    <form id="surnameForm">
+        <input type="text" name="surname1" value="Качурівський В.">
+        <input type="text" name="surname2" value="Калиній І.">
+        <input type="text" name="surname3" value="Роман Б.">
+        <input type="text" name="surname4" value="Ваше прізвище та ім’я">
+    </form>
+
+    <script>
+        function addElement() {
+            const ul = document.getElementById('myList');
+            const li = document.createElement('li');
+            li.textContent = 'Новий елемент';
+            ul.appendChild(li);
+        }
+
+        function removeLastElement() {
+            const ul = document.getElementById('myList');
+            if (ul.children.length > 0) {
+                ul.removeChild(ul.lastElementChild);
+            }
+        }
+
+        function clearList() {
+            const ul = document.getElementById('myList');
+            ul.innerHTML = '';
+        }
+
+        function addTitle() {
+            const h3 = document.createElement('h3');
+            h3.textContent = 'Мій список';
+            const ul = document.getElementById('myList');
+            ul.parentNode.insertBefore(h3, ul);
+        }
+
+        function addFirstElement() {
+            const ul = document.getElementById('myList');
+            const li = document.createElement('li');
+            li.textContent = 'Новий елемент на початку';
+            ul.insertBefore(li, ul.firstChild);
+        }
+
+        function addElementFromInput() {
+            const input = document.getElementById('inputElement');
+            const ul = document.getElementById('myList');
+            const li = document.createElement('li');
+            li.textContent = input.value;
+            ul.appendChild(li);
+            input.value = ''; 
+        }
+
+        function removeSpecificElement(button) {
+            const li = button.parentElement;
+            li.remove();
+        }
+
+        function addDeletableElement() {
+            const ul = document.getElementById('deletableList');
+            const li = document.createElement('li');
+            li.textContent = 'Елемент зі кнопкою видалення';
+            const button = document.createElement('button');
+            button.textContent = 'Видалити';
+            button.onclick = function() {
+                removeSpecificElement(button);
+            };
+            li.appendChild(button);
+            ul.appendChild(li);
+        }
+
+        function moveElement(button, direction) {
+            const li = button.parentElement;
+            const ul = li.parentElement;
+            if (direction === 'up' && li.previousElementSibling) {
+                ul.insertBefore(li, li.previousElementSibling);
+            } else if (direction === 'down' && li.nextElementSibling) {
+                ul.insertBefore(li.nextElementSibling, li);
+            }
+        }
+
+        function addMoveableElement() {
+            const ul = document.getElementById('moveableList');
+            const li = document.createElement('li');
+            li.textContent = 'Елемент з переміщенням';
+            const upButton = document.createElement('button');
+            upButton.textContent = 'Вгору';
+            upButton.onclick = function() { moveElement(upButton, 'up'); };
+            const downButton = document.createElement('button');
+            downButton.textContent = 'Вниз';
+            downButton.onclick = function() { moveElement(downButton, 'down'); };
+            li.appendChild(upButton);
+            li.appendChild(downButton);
+            ul.appendChild(li);
+        }
+
+        function replaceElement() {
+            const p = document.getElementById('paragraph');
+            const h2 = document.createElement('h2');
+            h2.textContent = p.textContent;
+            p.replaceWith(h2);
+        }
+
+        function addCard() {
+            const cardsContainer = document.getElementById('cardsContainer');
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.innerHTML = '<p>Це картка</p><button onclick="removeCard(this)">Закрити</button>';
+            cardsContainer.appendChild(card);
+        }
+
+        function removeCard(button) {
+            const card = button.parentElement;
+            card.remove();
+        }
+
+        function sortTable(columnIndex) {
+            const table = document.getElementById('myTable');
+            const rows = Array.from(table.rows).slice(1);
+            const sortedRows = rows.sort((a, b) => {
+                const cellA = a.cells[columnIndex].textContent.trim();
+                const cellB = b.cells[columnIndex].textContent.trim();
+
+                if (columnIndex === 2) { 
+                    return parseInt(cellA) - parseInt(cellB);
+                }
+
+                return cellA.localeCompare(cellB); 
+            });
+            sortedRows.forEach(row => table.appendChild(row));
+        }
+
+        window.onload = () => {
+            const surnameForm = document.getElementById('surnameForm');
+            const article = ["Качурівський В.", "Калиній І.", "Роман Б.", "Ваше прізвище та ім’я"];
+            const inputs = surnameForm.elements;
+            for (let i = 0; i < article.length; i++) {
+                inputs[i].value = article[i];
+            }
+        };
+    </script>
+
+</body>
+</html>
