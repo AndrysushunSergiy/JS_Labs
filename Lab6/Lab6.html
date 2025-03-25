@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        img {
+            width: 200px;
+            height: 200px;
+        }
+    </style>
+</head>
+<body>
+
+    <input type="text" id="inputField" placeholder="Введіть текст">
+    <button onclick="changeColor()">Змінити колір тексту</button>
+
+    <hr>
+
+    <input type="text" id="inputDisable" placeholder="Це поле можна заблокувати/розблокувати">
+    <button onclick="toggleDisable(true)">Заблокувати поле</button>
+    <button onclick="toggleDisable(false)">Розблокувати поле</button>
+
+    <hr>
+
+    <img id="image" src="https://c4.wallpaperflare.com/wallpaper/140/374/493/360-effect-panoramas-photography-wallpaper-preview.jpg" alt="Картинка">
+    <button onclick="changeImage()">Змінити картинку</button>
+
+    <hr>
+
+    <img id="hoverImage" src="https://via.placeholder.com/150" alt="Картинка при наведенні"
+         onmouseover="changeOnHover(true)" onmouseout="changeOnHover(false)">
+
+    <hr>
+
+    <button id="clickButton" onclick="countClicks()">Кількість кліків: 0</button>
+
+    <script>
+        function changeColor() {
+            const input = document.getElementById('inputField');
+            input.style.color = "blue";  
+        }
+
+        function toggleDisable(isDisabled) {
+            const input = document.getElementById('inputDisable');
+            input.disabled = isDisabled;  
+        }
+
+        function changeImage() {
+            const image = document.getElementById('image');
+            if (image.src === "https://c4.wallpaperflare.com/wallpaper/140/374/493/360-effect-panoramas-photography-wallpaper-preview.jpg") {
+                image.src = "https://c4.wallpaperflare.com/wallpaper/83/634/371/nature-landscape-tree-sky-wallpaper-preview.jpg"; 
+            } else {
+                image.src = "https://c4.wallpaperflare.com/wallpaper/140/374/493/360-effect-panoramas-photography-wallpaper-preview.jpg"; 
+            }
+        }
+
+        function changeOnHover(isHovered) {
+            const image = document.getElementById('hoverImage');
+            if (isHovered) {
+                image.src = "https://c4.wallpaperflare.com/wallpaper/140/374/493/360-effect-panoramas-photography-wallpaper-preview.jpg";  
+            } else {
+                image.src = "https://c4.wallpaperflare.com/wallpaper/83/634/371/nature-landscape-tree-sky-wallpaper-preview.jpg";  
+            }
+        }
+
+        let clickCount = 0; 
+        function countClicks() {
+            clickCount++; 
+            const button = document.getElementById('clickButton');
+            button.innerHTML = `Кількість кліків: ${clickCount}`;
+        }
+    </script>
+
+</body>
+</html>
