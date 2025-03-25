@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Завдання на DOM</title>
+</head>
+<body>
+
+    <h2>Завдання 1: Заголовок, не змінюється.</h2>
+    <p>Абзац 1</p>
+    <p>Абзац 2</p>
+    <p>Абзац 3</p>
+    <button onclick="changeParagraphs()">Змінити абзаци</button>
+
+    <h2 class="abc">Завдання 2: Заголовок с класом abc.</h2>
+    <p class="abc">Абзац с класом abc.</p>
+    <p class="abc">Абзац с класом abc.</p>
+    <p>Просто абзац, не змінюється.</p>
+    <button onclick="changeClassABC()">Змінити елементи з класом abc</button>
+
+    <h2 class="abc">Завдання 3: Заголовок с класом abc не змінюється</h2>
+    <p class="abc">Абзац с класом abc.</p>
+    <p class="abc">Абзац с класом abc.</p>
+    <p>Просто абзац, не змінюється.</p>
+    <button onclick="changeQuerySelectorAll()">Змінити абзаци за допомогою querySelectorAll</button>
+
+    <h2>Завдання 4.</h2>
+    <p id="myParagraph">При натисканні на кнопку текст в абзаці зміниться</p>
+    <button onclick="changeText()">Змінити текст в абзаці</button>
+
+    <h2>Завдання 5.</h2>
+    <p id="myParagraph2">При натисканні на кнопку абзац стане h3, але текст залишиться.</p>
+    <button onclick="changeToH3()">Змінити на H3</button></br>
+
+    <h2>Завдання 6.</h2>
+    <a href="https://example1.com" id="link1">посилання1</a></br>
+    <a href="https://example2.com" id="link2">посилання2</a></br>
+    <a href="https://example3.com" id="link3">посилання3</a></br>
+    <button onclick="displayLinks()">Показати адреси посилань</button></br>
+
+    <h2>Завдання 7.</h2>
+    <p class="my-class">Абзац з class = "my-class".</p>
+    <button onclick="removeClass()">Знищити клас</button></br>
+
+    <h2>Завдання 8.</h2>
+    <img src="https://via.placeholder.com/1" alt="Картинка 1" class="image">
+    <img src="https://via.placeholder.com/2" alt="Картинка 2" class="image">
+    <img src="https://via.placeholder.com/3" alt="Картинка 3" class="image"></br>
+    <button onclick="displayImageSources()">Показати адреси картинок</button>
+
+    <h2>Завдання 9.</h2>
+    <p>Натисніть на картинку, щоб побачити її адресу:</p>
+    <img src="https://via.placeholder.com/1.1" alt="Картинка 1" onclick="showImageSource(this)">
+    <img src="https://via.placeholder.com/2.2" alt="Картинка 2" onclick="showImageSource(this)">
+    <img src="https://via.placeholder.com/3.3" alt="Картинка 3" onclick="showImageSource(this)">
+
+    <script>
+        function changeParagraphs() {
+            const paragraphs = document.getElementsByTagName('p');
+            for (let i = 0; i < paragraphs.length; i++) {
+                paragraphs[i].innerHTML = `Абзац ${i + 1}`;
+            }
+        }
+
+        function changeClassABC() {
+            const elements = document.getElementsByClassName('abc');
+            for (let i = 0; i < elements.length; i++) {
+                elements[i].innerHTML = `Елемент ${i + 1}`;
+            }
+        }
+
+        function changeQuerySelectorAll() {
+            const abcElements = document.querySelectorAll('.abc');
+            abcElements.forEach((element, index) => {
+                element.innerHTML = `Абзац ${index + 1}`;
+            });
+        }
+
+        function changeText() {
+            document.getElementById('myParagraph').innerHTML = 'Текст змінено!';
+        }
+
+        function changeToH3() {
+            const paragraph = document.getElementById('myParagraph2');
+            const h3 = document.createElement('h3');
+            h3.innerHTML = paragraph.innerHTML; 
+            paragraph.replaceWith(h3);
+        }
+
+        function displayLinks() {
+            const links = document.querySelectorAll('a');
+            links.forEach(link => {
+                alert(link.getAttribute('href'));
+            });
+        }
+
+        function removeClass() {
+            const element = document.querySelector('.my-class');
+            if (element) {
+                element.classList.remove('my-class'); 
+            }
+        }
+
+        function displayImageSources() {
+            const images = document.querySelectorAll('img');
+            images.forEach(image => {
+                alert(image.getAttribute('src')); 
+            });
+        }
+
+        function showImageSource(image) {
+            alert(image.getAttribute('src'));
+        }
+    </script>
+
+<style>
+    .my-class {
+        color: red; 
+    }
+</style>
+</body>
+</html>
