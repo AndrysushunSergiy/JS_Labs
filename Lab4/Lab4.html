@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab4</title>
+</head>
+<body>
+    <h2>Завдання 1.</h2>
+    <img src="C:\Users\user\Pictures\32488-6.jpg" alt="Image 1" class="image">
+    <img src="C:\Users\user\Pictures\34244-6.jpg" alt="Image 2" class="image"><br>
+
+    <script>
+        const images = document.querySelectorAll('.image');
+        images.forEach(img => {
+            img.addEventListener('click', () => {
+                alert(img.src);
+            });
+        });
+    </script>
+
+    <hr>
+    <h2>Завдання 2-4.</h2>
+    <a href="https://www.w3schools.com/java/java_conditions.asp" onmouseover="this.title=this.textContent">Перше посилання</a>
+    <br>
+    <a href="https://ek.ua/ua/?cgi_idsr_=104926" onmouseover="this.title=this.textContent">Друге посилання</a>
+    
+    
+        <script>
+            function showSrc(img) {
+                alert(img.src);
+            }
+
+            document.querySelectorAll("a").forEach(link => {
+                link.addEventListener("mouseover", function() {
+                    if (!this.dataset.originalText) {
+                        this.dataset.originalText = this.textContent; 
+                        this.textContent += ` (${this.href})`;
+                    }
+                });
+    
+                link.addEventListener("mouseout", function() {
+                    if (this.dataset.originalText) {
+                        this.textContent = this.dataset.originalText; 
+                        delete this.dataset.originalText;
+                    }
+                });
+            });
+        </script>
+ 
+       <hr>
+       <h2>Завдання 5.</h2>
+    <input type="text" id="input1">
+    <input type="text" id="input2">
+    <p id="test"></p>
+
+    <script>
+        const inputs = document.querySelectorAll('input');
+        inputs.forEach(input => {
+            input.addEventListener('blur', () => {
+                document.getElementById('test').textContent = input.value;
+            });
+        });
+    </script>
+    <h2>Завдання 6.</h2>
+    <input type="text" id="input3">
+    <input type="text" id="input4">
+
+    <script>
+        inputs.forEach(input => {
+            let clicked = false;
+            input.addEventListener('click', () => {
+                if (!clicked) {
+                    alert(input.value);
+                    clicked = true;
+                }
+            });
+        });
+    </script>
+    <h2>Завдання 7.</h2>
+    <p class="number">3</p>
+    <p class="number">4</p>
+    <p class="number">5</p>
+
+    <script>
+        const paragraphs = document.querySelectorAll('.number');
+        paragraphs.forEach(p => {
+            p.addEventListener('click', () => {
+                const num = parseInt(p.textContent);
+                p.textContent = num * num;
+            });
+        });
+    </script>
+    <h2>Завдання 8.</h2>
+    <input type="text" data-length="5" placeholder="Введіть 5 символів">
+    <input type="text" data-length="8" placeholder="Введіть 8 символів">
+
+    <script>
+        document.querySelectorAll("input").forEach(input => {
+            input.addEventListener("blur", function() {
+                let expectedLength = Number(this.dataset.length); 
+                if (this.value.length === expectedLength) {
+                    this.classList.add("valid");
+                    this.classList.remove("invalid");
+                } else {
+                    this.classList.add("invalid");
+                    this.classList.remove("valid");
+                }
+            });
+        });
+    </script>
+<style>
+    input {
+        border: 2px solid gray;
+        padding: 5px;
+        outline: none;
+    }
+    .valid {
+        border-color: green;
+    }
+    .invalid {
+        border-color: red;
+    }
+</style>
+    <hr>
+
+    <h2>Завдання 9.</h2>
+    <div id="text">Текст</div>
+    <button id="hideButton1">Сховати</button></br>
+
+    <script>
+        document.getElementById('hideButton1').addEventListener('click', () => {
+            document.getElementById('text').style.display = 'none';
+        });
+    </script>
+
+<h2>Завдання 10.</h2>
+    <button id="hideButton2">Сховатися</button></br>
+
+    <script>
+        document.getElementById('hideButton2').addEventListener('click', (event) => {
+            event.target.style.display = 'none';
+        });
+    </script>
+
+<h2>Завдання 11.</h2>
+    <button id="toggleButton">Відкрити/Закрити меню</button></br>
+    <ul id="menu" style="display: none;">
+        <li>Пункт 1</li>
+        <li>Пункт 2</li>
+        <li>Пункт 3</li>
+    </ul>
+
+    <script>
+        document.getElementById('toggleButton').addEventListener('click', () => {
+            const menu = document.getElementById('menu');
+            menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+        });
+    </script>
+
+    <hr>
+    <h2>Завдання 12.</h2>
+    <button id="prev">←</button>
+    <button id="next">→</button>
+    <div id="carousel">
+        <img src="https://t3.ftcdn.net/jpg/05/00/40/34/360_F_500403491_QdfkWdTIe0CAbQ0tlJum4kwcCAaNtl9D.jpg" alt="Image 1">
+        <img src="https://thumbs.dreamstime.com/b/lively-multicolored-paint-splash-creating-dynamic-abstract-background-hd-wallpaper-design-lively-multicolored-paint-362994731.jpg" alt="Image 2">
+        <img src="https://thumbs.dreamstime.com/b/abstract-background-blured-hd-wallpaper-ai-created-content-design-instagram-facebook-wall-painting-backgrounds-image-photo-art-325261659.jpg" alt="Image 3">
+    </div>
+    
+
+    <script>
+        let currentIndex = 0;
+        const carouselImages = document.querySelectorAll('#carousel img');
+        const totalImages = carouselImages.length;
+
+        document.getElementById('prev').addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + totalImages) % totalImages;
+            updateCarousel();
+        });
+
+        document.getElementById('next').addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % totalImages;
+            updateCarousel();
+        });
+
+        function updateCarousel() {
+            carouselImages.forEach((img, index) => {
+                img.style.display = index === currentIndex ? 'block' : 'none';
+            });
+        }
+
+        updateCarousel();
+    </script>
+
+</body>
+</html>
