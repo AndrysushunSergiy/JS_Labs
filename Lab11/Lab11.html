@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<style>
+    button{
+     color: red;
+    }
+</style>
+<body>
+
+  <section>
+    <h2>1. Отримати випадковий жарт</h2>
+    <button onclick="getJoke()">Отримати жарт</button>
+    <p id="joke"></p>
+  </section>
+
+  <section>
+    <h2>2. Завантажити текстовий файл</h2>
+    <button onclick="loadText()">Завантажити текст</button>
+    <div id="textOutput" style="white-space: pre-wrap;"></div>
+  </section>
+
+
+  <section>
+    <h2>3. Форма з AJAX-обробкою</h2>
+    <form onsubmit="submitForm(event)">
+      <input type="text" id="nameInput" placeholder="Введіть ім’я" required>
+      <button type="submit">Надіслати</button>
+    </form>
+    <p id="responseMsg"></p>
+  </section>
+
+
+  <section>
+    <h2>4. Список користувачів з JSON</h2>
+    <button onclick="loadUsers()">Завантажити користувачів</button>
+    <ul id="userList"></ul>
+  </section>
+
+
+  <section>
+    <h2>5. AJAX з обробкою помилки</h2>
+    <button onclick="badRequest()">Поганий запит</button>
+    <p id="errorMsg" style="color: red;"></p>
+  </section>
+
+  <script>
+   
+    function getJoke() {
+      const xhr = new XMLHttpRequest();
+      xhr.open("GET", "https://official-joke-api.appspot.com/random_joke");
+      xhr.onload = function () {
+        if (xhr.status === 200) {
+          const data = JSON.parse(xhr.responseText);
+          document.getElementById("joke").textContent = data.setup + " — " + data.punchline;
+        }
+      };
+      xhr.send();
+    }
+
+   
+    function loadText() {
+      const xhr = new XMLHttpRequest();
+      xhr.open("GET", "text.txt");
+      xhr.onload = function () {
+        if (xhr.status === 200) {
+          document.getElementById("textOutput").textContent = xhr.responseText;
+        }
+      };
+      xhr.send();
+    }
+
+ 
+    function submitForm(e) {
+      e.preventDefault();
+      const name = document.getElementById("nameInput").value;
+      const xhr = new XMLHttpRequest();
+      xhr.open("POST", "https://jsonplaceholder.typicode.com/posts");
+      xhr.setRequestHeader("Content-Type", "application/json");
+      xhr.onload = function () {
+        if (xhr.status === 201) {
+          const res = JSON.parse(xhr.responseText);
+          document.getElementById("responseMsg").textContent = `Привіт, ${name}! Дані надіслано. ID: ${res.id}`;
+        }
+      };
+      xhr.send(JSON.stringify({ name }));
+    }
+
+   
+    function loadUsers() {
+      const xhr = new XMLHttpRequest();
+      xhr.open("GET", "users.json");
+      xhr.onload = function () {
+        if (xhr.status === 200) {
+          const users = JSON.parse(xhr.responseText);
+          const list = users.map(u => `<li>${u.name}</li>`).join("");
+          document.getElementById("userList").innerHTML = list;
+        }
+      };
+      xhr.send();
+    }
+
+ 
+    function badRequest() {
+      const xhr = new XMLHttpRequest();
+      xhr.open("GET", "https://example.com/notfound");
+      xhr.onload = function () {
+        if (xhr.status !== 200) {
+          document.getElementById("errorMsg").textContent = `Помилка: ${xhr.status} — ${xhr.statusText}`;
+        }
+      };
+      xhr.onerror = function () {
+        document.getElementById("errorMsg").textContent = "Помилка з’єднання!";
+      };
+      xhr.send();
+    }
+  </script>
+</body>
+</html>

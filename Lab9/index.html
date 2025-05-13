@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>JavaScript Завдання</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    button { margin: 5px 0; display: block; color: red; }
+    .section { margin-bottom: 30px; }
+  </style>
+</head>
+<body>
+
+
+<div class="section">
+  <h2>Завдання 1: Висота вікна</h2>
+  <button onclick="alert(window.innerHeight)">Показати висоту вікна</button>
+</div>
+
+<div class="section">
+  <h2>Завдання 2: Прокручування вниз</h2>
+  <button onclick="window.scrollTo(0, document.body.scrollHeight)">Прокрутити донизу</button>
+</div>
+
+<div class="section">
+  <h2>Завдання 3: Наявність вертикальної прокрутки</h2>
+  <button onclick="alert(document.documentElement.scrollHeight > window.innerHeight ? 'Є прокрутка' : 'Немає прокрутки')">Перевірити наявність прокрутки</button>
+</div>
+
+<div class="section">
+  <h2>Завдання 4: Відкрити нове вікно</h2>
+  <button onclick="window.open('https://example.com', '_blank', 'width=600,height=400')">Відкрити сайт</button>
+</div>
+
+<div class="section">
+  <h2>Завдання 5: Закрити вікно через 5 секунд</h2>
+  <button onclick="
+    const newWindow = window.open('https://example.com', '', 'width=600,height=400');
+    setTimeout(() => { newWindow.close(); }, 5000);
+  ">Відкрити та закрити через 5 сек</button>
+</div>
+
+<div class="section">
+  <h2>Завдання 6: Розміри вікна при завантаженні</h2>
+  <p>Відкрити консоль</p>
+</div>
+
+<div class="section">
+  <h2>Завдання 7: Перемістити нове вікно</h2>
+  <button onclick="
+    const win = window.open('', '', 'width=400,height=300');
+    win.moveTo(100, 100);
+  ">Відкрити і перемістити</button>
+</div>
+
+<div class="section">
+  <h2>Завдання 8: Змінити розмір вікна</h2>
+  <button onclick="
+    const win = window.open('', '', 'width=400,height=300');
+    win.resizeTo(800, 600);
+  ">Відкрити і змінити розмір</button>
+</div>
+
+<div class="section">
+  <h2>Завдання 9: Відстеження зміни розміру</h2>
+  <p>Зміни розміру вікна в консолі</p>
+</div>
+
+<div class="section">
+  <h2>Завдання 10: Прокрутка на 300 пікселів вниз</h2>
+  <button onclick="window.scrollBy(0, 300)">Прокрутити на 300px вниз</button>
+</div>
+
+<div class="section">
+  <h2>Завдання 11: Відстеження прокрутки</h2>
+  <p>Прокрутити сторінку, позиція по Y буде в консолі</p>
+</div>
+
+<div class="section">
+  <h2>Завдання 12: Діалогові вікна</h2>
+  <button onclick="
+    let name = prompt('Введіть ваше ім’я:');
+    if (confirm(`Ви ввели: ${name}. Продовжити?`)) {
+      alert(`Привіт, ${name}!`);
+    }
+  ">Запитати ім’я</button>
+</div>
+
+<div class="section">
+  <h2>Завдання 13: Передача даних між вікнами</h2>
+  <button onclick="window.open('child.html?msg=Wasssaaaaa!', '_blank')">Відкрити дитяче вікно</button>
+</div>
+
+
+<div style="height:2000px;"></div>
+
+<script>
+  window.onload = () => {
+    console.log(`Ширина: ${window.innerWidth}, Висота: ${window.innerHeight}`);
+  };
+
+
+  window.addEventListener('resize', () => {
+    console.log(`Розмір вікна змінено: ширина - ${window.innerWidth}, висота - ${window.innerHeight}`);
+  });
+
+
+  window.addEventListener('scroll', () => {
+    console.log(`Поточна позиція по Y: ${window.scrollY}`);
+  });
+</script>
+
+</body>
+</html>

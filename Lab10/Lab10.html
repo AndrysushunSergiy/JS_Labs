@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    button { margin: 5px 0; display: block; color:red}
+    .section { margin-bottom: 30px; }
+    pre { background: #f0f0f0; padding: 10px; }
+  </style>
+</head>
+<body>
+
+
+
+<div class="section">
+  <h2>Завдання 1: Робота з <code>window.location</code></h2>
+  
+ 
+  <p>Повна адреса сторінки:</p>
+  <pre id="fullUrl"></pre>
+  
+ 
+  <button onclick="location.reload()">Перезавантажити сторінку</button>
+  <button onclick="location.href = 'https://www.google.com'">Перейти на Google</button>
+</div>
+
+
+<div class="section">
+  <h2>Завдання 2: Робота з <code>window.history</code></h2>
+  
+ 
+  <button onclick="history.back()">Назад</button>
+  <button onclick="history.forward()">Вперед</button>
+  
+
+  <p>Кількість записів в історії:</p>
+  <pre id="historyLength"></pre>
+</div>
+
+
+<div class="section">
+  <h2>Завдання 3: Робота з <code>window.navigator</code></h2>
+  
+
+  <p>Інформація про браузер:</p>
+  <pre id="browserInfo"></pre>
+
+ 
+  <p>Мова браузера:</p>
+  <pre id="browserLang"></pre>
+</div>
+
+
+
+<div class="section">
+  <h2>Завдання 4: Робота з Cookies</h2>
+
+
+  <button onclick="setCookie()">Встановити cookie</button>
+
+ 
+  <p>Всі cookie:</p>
+  <pre id="cookieOutput"></pre>
+</div>
+
+<script>
+
+  document.getElementById('fullUrl').textContent = window.location.href;
+
+
+  document.getElementById('historyLength').textContent = history.length;
+
+ 
+  const browserInfo = `
+    Назва: ${navigator.appName}
+    Версія: ${navigator.appVersion}
+  `;
+  document.getElementById('browserInfo').textContent = browserInfo;
+
+  document.getElementById('browserLang').textContent = navigator.language;
+
+  
+function setCookie() {
+    document.cookie = "username=Guest";
+    alert("Cookie встановлено");
+    showCookies(); 
+  }
+
+  function showCookies() {
+    document.getElementById('cookieOutput').textContent = document.cookie || "Немає cookies";
+  }
+
+ 
+  showCookies();
+</script>
+
+</body>
+</html>
